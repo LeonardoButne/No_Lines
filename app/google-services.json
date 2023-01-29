@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "51613523163",
+    "project_id": "help-f32b4",
+    "storage_bucket": "help-f32b4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:51613523163:android:46c9e4c7da9e2b665e80fe",
+        "android_client_info": {
+          "package_name": "mz.ac.isutc.help"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "51613523163-to3k3gnmktrgmpjrupvnj4et5ap0252c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsKVLHyRnlizJvqv5oY2oP3UUNFol8NBk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "51613523163-to3k3gnmktrgmpjrupvnj4et5ap0252c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

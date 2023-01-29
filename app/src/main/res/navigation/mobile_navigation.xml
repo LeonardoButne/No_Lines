@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="mz.ac.isutc.help.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_meusAgendamentos"
+        android:name="mz.ac.isutc.help.ui.MeusAgendamentos.MeusAgendamentosFragment"
+        android:label="Meus agendamentos"
+        tools:layout="@layout/fragment_meusagendamentos" />
+
+    <fragment
+        android:id="@+id/nav_meusDados"
+        android:name="mz.ac.isutc.help.ui.Meusdados.MeusDadosFragment"
+        android:label="Meus dados"
+        tools:layout="@layout/fragment_meusdados" />
+    <fragment
+        android:id="@+id/nav_contacto"
+        android:name="mz.ac.isutc.help.ui.contacto.ContactoFragment"
+        android:label="@string/contacto"
+        tools:layout="@layout/fragment_contacto" />
+</navigation>
