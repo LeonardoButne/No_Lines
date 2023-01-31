@@ -91,9 +91,8 @@ public class LoginActivity extends AppCompatActivity {
                             editor.putString("name", "true");
                             editor.apply();
 
-                            Toast.makeText(LoginActivity.this, "Sucesso.",
-                                    Toast.LENGTH_SHORT).show();
-                            FirebaseUser user = auth.getCurrentUser();
+                            Toast.makeText(LoginActivity.this, "Sucesso.", Toast.LENGTH_SHORT).show();
+                            //FirebaseUser user = auth.getCurrentUser();
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
 
                         } else {
@@ -109,13 +108,16 @@ public class LoginActivity extends AppCompatActivity {
 
         usuario = new Usuario();
 
-        String email = binding.edtEmail.getText().toString();
-        String senha = binding.edtSenha.getText().toString();
+        if(binding.edtEmail.getText().toString().isEmpty() || binding.edtSenha.getText().toString().isEmpty()){
+            Toast.makeText(LoginActivity.this, "Preencha os dados primeiro",
+                    Toast.LENGTH_SHORT).show();
+        }else{
+            String email = binding.edtEmail.getText().toString();
+            String senha = binding.edtSenha.getText().toString();
 
-        usuario.setEmail(email);
-        usuario.setSenha(senha);
-
-
+            usuario.setEmail(email);
+            usuario.setSenha(senha);
+        }
     }
 
 }

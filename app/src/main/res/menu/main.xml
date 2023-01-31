@@ -4,6 +4,6 @@
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
-        android:title="Terminar sessao"
+        android:title="@string/terminar_sessao"
         app:showAsAction="never" />
 </menu>

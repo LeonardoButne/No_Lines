@@ -34,6 +34,7 @@
     <string name="contacto">Contacto</string>
     <string name="sector">Sector:</string>
     <string name="data">Data</string>
+    <string name="terminar_sessao">Terminar sessao</string>
 
     <string-array name="departamentos">
         <item>Cicurgia</item>

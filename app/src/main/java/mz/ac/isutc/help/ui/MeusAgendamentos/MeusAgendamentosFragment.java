@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,6 +31,8 @@ import mz.ac.isutc.help.ui.models.MarcacaoAdapter;
 public class MeusAgendamentosFragment extends Fragment {
 
     private FragmentMeusagendamentosBinding binding;
+    private ImageView btn_remover;
+
 
     private List<Marcacao> marcacoes;
     RecyclerView recyclerView;
@@ -38,8 +42,10 @@ public class MeusAgendamentosFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        binding = FragmentMeusagendamentosBinding.inflate(inflater, container, false);
+        binding = FragmentMeusagendamentosBinding.inflate(getLayoutInflater());
         View root = binding.getRoot();
+
+
 
         return root;
     }
@@ -53,12 +59,9 @@ public class MeusAgendamentosFragment extends Fragment {
         marcacoes = new ArrayList<>();
         databaseReference = ConfiguracaoFireBase.getFirebaseDatabase();
 
-        //.orderByChild("idusuario")
-        //            .equalTo(1);
-
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        databaseReference.child("marcacoes").orderByChild("id_usuario").equalTo(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child("marcacoes").addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -68,7 +71,12 @@ public class MeusAgendamentosFragment extends Fragment {
 
                     if(dn.getValue() != null){
                         Marcacao m = dn.getValue(Marcacao.class);
-                        marcacoes.add(m);
+
+                        if (m.getId().equals(uid)) {
+                            marcacoes.add(m);
+                        }
+
+
                     }
 
                 }

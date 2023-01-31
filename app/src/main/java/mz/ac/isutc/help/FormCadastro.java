@@ -89,7 +89,6 @@ public class FormCadastro extends AppCompatActivity {
 
                 }else{
                     Toast.makeText(FormCadastro.this , "O Cadastro falou", Toast.LENGTH_SHORT).show();
-
                 }
             }
         } );

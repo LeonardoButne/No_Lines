@@ -8,6 +8,7 @@ import mz.ac.isutc.help.ui.config.ConfiguracaoFireBase;
 
 public class Marcacao {
     private String id;
+    private String id_agenda;
     private String sector;
     private String data;
     private String hora;
@@ -20,6 +21,22 @@ public class Marcacao {
         this.sector = sector;
         this.data = data;
         this.hora = hora;
+    }
+
+    public Marcacao(String id, String id_agenda, String sector, String data, String hora) {
+        this.id = id;
+        this.id_agenda = id_agenda;
+        this.sector = sector;
+        this.data = data;
+        this.hora = hora;
+    }
+
+    public String getId_agenda() {
+        return id_agenda;
+    }
+
+    public void setId_agenda(String id_agenda) {
+        this.id_agenda = id_agenda;
     }
 
     @Override
@@ -64,5 +81,9 @@ public class Marcacao {
         this.hora = hora;
     }
 
+    public void salvarDados(){
+        DatabaseReference firebase = ConfiguracaoFireBase.getFirebaseDatabase();
+        firebase.child("marcacao").child(this.id_agenda).setValue(this);
+    }
 
 }

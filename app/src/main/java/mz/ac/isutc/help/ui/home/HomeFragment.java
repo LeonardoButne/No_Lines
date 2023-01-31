@@ -18,6 +18,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -26,6 +28,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 import mz.ac.isutc.help.databinding.FragmentHomeBinding;
+import mz.ac.isutc.help.ui.config.ConfiguracaoFireBase;
 import mz.ac.isutc.help.ui.models.Marcacao;
 
 public class HomeFragment extends Fragment {
@@ -34,7 +37,7 @@ public class HomeFragment extends Fragment {
     private Marcacao marcacao = new Marcacao();
 
     private FirebaseDatabase db = FirebaseDatabase.getInstance();;
-    private DatabaseReference root = db.getReference().child("marcacoes");;
+    private DatabaseReference root = db.getReference().child("marcacoes");
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -96,9 +99,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-
-
-
     binding.btnAgendar.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -112,24 +112,41 @@ public class HomeFragment extends Fragment {
 
     public void criarMarcacao() {
         HashMap<String, String> marcacaoMap = new HashMap<>();
-        String uid = FirebaseAuth.getInstance ().getCurrentUser ().getUid ();
 
-        marcacaoMap.put("id_usuario", uid);
-        marcacaoMap.put("sector", marcacao.getSector());
-        marcacaoMap.put("data", marcacao.getData());
-        marcacaoMap.put("hora", marcacao.getHora());
+
+
+        root.child( marcacao.getId_agenda()).setValue(marcacao).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+
+            }
+        });
+
+
+//        marcacaoMap.put("id_agenda", marcacao.getId_agenda());
+//        marcacaoMap.put("id_usuario", uid);
+//        marcacaoMap.put("sector", marcacao.getSector());
+//        marcacaoMap.put("data", marcacao.getData());
+//        marcacaoMap.put("hora", marcacao.getHora());
 
         root.push().setValue(marcacaoMap);
 
     }
     private void recuperarDados(){
 
+
         String sector = binding.spinner.getSelectedItem().toString();
         String data = binding.edtData.getText().toString();
         String time = binding.edtTime.getText().toString();
 
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid ();
             marcacao = new Marcacao();
 
+
+            String id_agenda = db.getReference().push().getKey();
+
+            marcacao.setId_agenda(id_agenda);
+            marcacao.setId(uid);
             marcacao.setData(data);
             marcacao.setHora(time);
             marcacao.setSector(sector);
