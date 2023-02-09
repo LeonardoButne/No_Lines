@@ -48,6 +48,27 @@ public class SectorAdapter extends RecyclerView.Adapter {
         vhClass.txtV_nome.setText(sector.getNome());
         vhClass.txtV_id.setText(sector.getId());
 
+        ((ViewHolderClass) holder).btn_remover.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FirebaseDatabase db = FirebaseDatabase.getInstance();;
+                DatabaseReference root = db.getReference().child("sectores");
+
+                sectores.remove(holder.getAdapterPosition());
+                notifyItemRemoved(holder.getAdapterPosition());
+                notifyItemRangeChanged(holder.getAdapterPosition(), sectores.size());
+
+                Toast.makeText(v.getContext(), "removendo...", Toast.LENGTH_LONG).show();
+
+                String id_sector = ((ViewHolderClass) holder).txtV_id.getText().toString();
+
+                SectorModel sectorModel = new SectorModel();
+
+                root.child(id_sector).removeValue();
+            }
+        });
+
 
 
         //sectores.remove(position);
@@ -74,18 +95,18 @@ public class SectorAdapter extends RecyclerView.Adapter {
             txtV_nome = itemView.findViewById(R.id.txt_nome_sector);
             txtV_id = itemView.findViewById(R.id.txt_id_sector);
 
-            btn_remover.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(itemView.getContext(), "removendo..." + txtV_nome.getText(), Toast.LENGTH_LONG).show();
-
-                    String id_sector = txtV_id.getText().toString();
-
-                    SectorModel sectorModel = new SectorModel();
-
-                    root.child(id_sector).removeValue();
-                }
-            });
+//            btn_remover.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+  //                  Toast.makeText(getCon , "removendo..." + txtV_nome.getText(), Toast.LENGTH_LONG).show();
+//
+//                    String id_sector = txtV_id.getText().toString();
+//
+//                    SectorModel sectorModel = new SectorModel();
+//
+//                    root.child(id_sector).removeValue();
+//                }
+//            });
 
         }
     }

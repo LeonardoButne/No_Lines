@@ -67,6 +67,7 @@ public class HomeFragment extends Fragment {
         listarSectores();
         String [] sectores_array = new String[sectores.size()];
 
+
         for (int i = 0; i < sectores.size(); i++){
             sectores_array[i] = sectores.get(i).getNome();
         }
@@ -76,9 +77,7 @@ public class HomeFragment extends Fragment {
         binding.spinner.setAdapter(adapter);
 
         listarHorarios();
-        if(horarios.isEmpty()){
-            Toast.makeText(getContext(), "Nao ha nada", Toast.LENGTH_SHORT).show();
-        }
+
         String [] horaraios_array = new String[horarios.size()];
 
         for (int i = 0; i < horarios.size(); i++){
@@ -89,6 +88,9 @@ public class HomeFragment extends Fragment {
         ArrayAdapter<String> adapter_horarios = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, horaraios_array );
         adapter_horarios.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         binding.spinnerTime.setAdapter(adapter_horarios);
+
+        sectores.removeAllElements();
+        horarios.removeAllElements();
 
         listarPacientes();
 

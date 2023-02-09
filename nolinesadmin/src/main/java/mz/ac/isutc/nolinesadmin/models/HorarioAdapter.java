@@ -40,6 +40,28 @@ import mz.ac.isutc.nolinesadmin.R;
 
             vhClass.txtV_nome.setText(horario.getNome());
             vhClass.txtV_id.setText(horario.getId());
+
+            ((HorarioAdapter.ViewHolderClass) holder).btn_remover.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    FirebaseDatabase db = FirebaseDatabase.getInstance();;
+                    DatabaseReference root = db.getReference().child("horarios");
+
+                    horarios.remove(holder.getAdapterPosition());
+                    notifyItemRemoved(holder.getAdapterPosition());
+                    notifyItemRangeChanged(holder.getAdapterPosition(), horarios.size());
+
+                    Toast.makeText(v.getContext(), "removendo...", Toast.LENGTH_LONG).show();
+
+                    String id_horario = ((HorarioAdapter.ViewHolderClass) holder).txtV_id.getText().toString();
+
+                    HorarioModel horarioModel = new HorarioModel();
+
+                    root.child(id_horario).removeValue();
+                }
+            });
+
         }
 
         @Override
@@ -62,20 +84,6 @@ import mz.ac.isutc.nolinesadmin.R;
                 txtV_nome = itemView.findViewById(R.id.txt_nome_horario);
                 txtV_id = itemView.findViewById(R.id.txt_id_horario);
 
-                btn_remover.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        int position = getAdapterPosition();
-
-                        Toast.makeText(itemView.getContext(), "removendo..." + txtV_nome.getText(), Toast.LENGTH_LONG).show();
-
-                        String id_horario = txtV_id.getText().toString();
-
-                        root.child(id_horario).removeValue();
-
-                        notifyDataSetChanged();
-                    }
-                });
             }
         }
     }

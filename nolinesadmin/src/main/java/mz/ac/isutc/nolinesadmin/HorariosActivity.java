@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,11 +22,14 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Vector;
 
 import mz.ac.isutc.nolinesadmin.config.ConfiguracaoFireBase;
 import mz.ac.isutc.nolinesadmin.databinding.ActivityHorariosBinding;
 import mz.ac.isutc.nolinesadmin.models.HorarioAdapter;
 import mz.ac.isutc.nolinesadmin.models.HorarioModel;
+import mz.ac.isutc.nolinesadmin.models.SectorAdapter;
+import mz.ac.isutc.nolinesadmin.models.SectorModel;
 
 public class HorariosActivity extends AppCompatActivity {
 
@@ -35,7 +39,7 @@ public class HorariosActivity extends AppCompatActivity {
     private ActivityHorariosBinding binding;
     private HorarioModel horario = new HorarioModel();
 
-    private List<HorarioModel> horarios;
+    private Vector<HorarioModel> horarios;
     RecyclerView recyclerView;
     HorarioAdapter horarioAdapter;
     DatabaseReference databaseReference;
@@ -47,14 +51,24 @@ public class HorariosActivity extends AppCompatActivity {
         binding = ActivityHorariosBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        String [] horaraios_array = {"das 7h as 8h","das 8h as 9h","das 10h as 11h", "das 11h as 12h", "das 12h as 13h","das 13h as 14h","das 14h as 15h"};
+
+
+        ArrayAdapter<String> adapter_horarios = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, horaraios_array );
+        adapter_horarios.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        binding.spinner.setAdapter(adapter_horarios);
+
+
+
         recyclerView = binding.recyclerView;
 
         recyclerView.setLayoutManager(new LinearLayoutManager(HorariosActivity.this));
-        horarios = new ArrayList<>();
+        horarios = new Vector();
         databaseReference = ConfiguracaoFireBase.getFirebaseDatabase();
 
 //        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+        adicionarNoRecycle();
 
         binding.btnAdicionar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,14 +76,20 @@ public class HorariosActivity extends AppCompatActivity {
 
                 if (recuperarDados() == true) {
                     Toast.makeText(HorariosActivity.this, "Salvo com sucesso!!!", Toast.LENGTH_SHORT).show();
-                    binding.edtHorario.setText(null);
                     criarMarcacao();
+
+                    horarios.removeAllElements();
+                    adicionarNoRecycle();
 
                 }
 
             }
         });
 
+
+
+    }
+    public void adicionarNoRecycle() {
         databaseReference.child("horarios").addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
@@ -96,7 +116,6 @@ public class HorariosActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     public void criarMarcacao() {
@@ -116,7 +135,7 @@ public class HorariosActivity extends AppCompatActivity {
     private boolean recuperarDados(){
 
 
-        String novo_horario = binding.edtHorario.getText().toString();
+        String novo_horario = binding.spinner.getSelectedItem().toString();
 
         if(novo_horario.isEmpty()){
             Toast.makeText(HorariosActivity.this,"Preencha todos os campos primeiro", Toast.LENGTH_SHORT).show();

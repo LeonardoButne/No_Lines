@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -14,6 +15,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import mz.ac.isutc.nolinesadmin.config.ConfiguracaoFireBase;
 import mz.ac.isutc.nolinesadmin.databinding.ActivityHorariosBinding;
@@ -28,7 +30,7 @@ public class PacientesActivity extends AppCompatActivity {
 
     private PacienteModel sector = new PacienteModel();
 
-    public static List<PacienteModel> pacientes;
+    public static Vector<PacienteModel> pacientes;
     RecyclerView recyclerView;
     PacienteAdapter pacienteAdapter;
     DatabaseReference databaseReference;
@@ -44,10 +46,46 @@ public class PacientesActivity extends AppCompatActivity {
         recyclerView = binding.recyclerView3;
 
         recyclerView.setLayoutManager(new LinearLayoutManager(PacientesActivity.this));
-        pacientes = new ArrayList<>();
+        pacientes = new Vector();
         databaseReference = ConfiguracaoFireBase.getFirebaseDatabase();
 
+        binding.button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                pacientes.removeAllElements();
+                listaOrdemNome();
+            }
+        });
+
         databaseReference.child("usuarios").addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+
+                for (DataSnapshot dn : snapshot.getChildren()) {
+
+                    if (dn.getValue() != null) {
+                        PacienteModel h = dn.getValue(PacienteModel.class);
+                        pacientes.add(h);
+
+                    }
+                }
+                pacienteAdapter = new PacienteAdapter(pacientes);
+                recyclerView.setAdapter(pacienteAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void listaOrdemNome() {
+
+        databaseReference.child("usuarios").orderByChild("nome").addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

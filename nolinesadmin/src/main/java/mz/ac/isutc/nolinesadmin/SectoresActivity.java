@@ -23,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Vector;
 
 import mz.ac.isutc.nolinesadmin.config.ConfiguracaoFireBase;
 import mz.ac.isutc.nolinesadmin.databinding.ActivityHorariosBinding;
@@ -40,7 +41,7 @@ public class SectoresActivity extends AppCompatActivity {
     private ActivitySectoresBinding binding;
     private SectorModel sector = new SectorModel();
 
-    private List<SectorModel> sectores;
+    private Vector<SectorModel> sectores;
     RecyclerView recyclerView;
     SectorAdapter sectorAdapter;
     DatabaseReference databaseReference;
@@ -54,8 +55,10 @@ public class SectoresActivity extends AppCompatActivity {
         recyclerView = binding.recyclerView2;
 
         recyclerView.setLayoutManager(new LinearLayoutManager(SectoresActivity.this));
-        sectores = new ArrayList<>();
+        sectores = new Vector();
         databaseReference = ConfiguracaoFireBase.getFirebaseDatabase();
+
+        adicionarNoRecycle();
 
         binding.btnAdicionar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,14 +68,19 @@ public class SectoresActivity extends AppCompatActivity {
                     Toast.makeText(SectoresActivity.this, "Salvo com sucesso!!!", Toast.LENGTH_SHORT).show();
                     binding.edtSector.setText(null);
                     criarMarcacao();
-                    sectorAdapter = new SectorAdapter(sectores);
 
-
+                    sectores.removeAllElements();
+                    adicionarNoRecycle();
                 }
 
             }
         });
 
+
+
+    }
+
+    public void adicionarNoRecycle() {
         databaseReference.child("sectores").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -92,7 +100,6 @@ public class SectoresActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     public void criarMarcacao() {

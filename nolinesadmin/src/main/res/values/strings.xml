@@ -8,4 +8,5 @@
     <string name="telefone">Telefone:</string>
     <string name="textview">TextView</string>
     <string name="nome">Nome:</string>
+    <string name="selecione_um_item">Seleccione um horario</string>
 </resources>
