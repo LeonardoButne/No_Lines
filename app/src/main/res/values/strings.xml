@@ -35,6 +35,7 @@
     <string name="sector">Sector:</string>
     <string name="data">Data</string>
     <string name="terminar_sessao">Terminar sessao</string>
+    <string name="clique_no_icon_ao_lado">clique no icon ao lado</string>
 
     <string-array name="departamentos">
         <item>Cicurgia</item>

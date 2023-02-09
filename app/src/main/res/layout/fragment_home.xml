@@ -51,7 +51,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:enabled="false"
-            android:hint="clique no icon ao lado"
+            android:hint="@string/clique_no_icon_ao_lado"
             android:importantForAutofill="no"
             android:inputType="date"
             android:minHeight="48dp"
@@ -76,34 +76,19 @@
 
         <TextView
             android:id="@+id/textView4"
-            android:layout_width="wrap_content"
+            android:layout_width="193dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Hora:"
             android:textColor="#000000"
             android:textSize="24sp" />
 
-        <EditText
-            android:id="@+id/edt_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:enabled="false"
-            android:hint="clique no icon ao lado"
-            android:importantForAutofill="no"
-            android:inputType="time"
-            android:minHeight="48dp"
-            android:textColor="#000000"
-            android:textColorHint="#757575"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-        <ImageView
-            android:id="@+id/btn_hora"
-            android:layout_width="wrap_content"
+        <Spinner
+            android:id="@+id/spinner_time"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@drawable/ic_baseline_access_time_24" />
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
     </LinearLayout>
 

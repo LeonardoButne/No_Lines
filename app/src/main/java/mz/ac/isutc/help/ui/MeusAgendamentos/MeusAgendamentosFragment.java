@@ -31,7 +31,6 @@ import mz.ac.isutc.help.ui.models.MarcacaoAdapter;
 public class MeusAgendamentosFragment extends Fragment {
 
     private FragmentMeusagendamentosBinding binding;
-    private ImageView btn_remover;
 
 
     private List<Marcacao> marcacoes;
@@ -75,8 +74,6 @@ public class MeusAgendamentosFragment extends Fragment {
                         if (m.getId().equals(uid)) {
                             marcacoes.add(m);
                         }
-
-
                     }
 
                 }

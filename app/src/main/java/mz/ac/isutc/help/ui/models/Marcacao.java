@@ -12,23 +12,26 @@ public class Marcacao {
     private String sector;
     private String data;
     private String hora;
+    private String nome_paciente;
 
     public Marcacao() {
     }
 
-    public Marcacao(String id, String sector, String data, String hora) {
-        this.id = id;
-        this.sector = sector;
-        this.data = data;
-        this.hora = hora;
-    }
-
-    public Marcacao(String id, String id_agenda, String sector, String data, String hora) {
+    public Marcacao(String id, String id_agenda, String sector, String data, String hora, String nome_paciente) {
         this.id = id;
         this.id_agenda = id_agenda;
         this.sector = sector;
         this.data = data;
         this.hora = hora;
+        this.nome_paciente = nome_paciente;
+    }
+
+    public String getNome_paciente() {
+        return nome_paciente;
+    }
+
+    public void setNome_paciente(String nome_paciente) {
+        this.nome_paciente = nome_paciente;
     }
 
     public String getId_agenda() {
@@ -81,9 +84,5 @@ public class Marcacao {
         this.hora = hora;
     }
 
-    public void salvarDados(){
-        DatabaseReference firebase = ConfiguracaoFireBase.getFirebaseDatabase();
-        firebase.child("marcacao").child(this.id_agenda).setValue(this);
-    }
 
 }

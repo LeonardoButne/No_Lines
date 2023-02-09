@@ -89,8 +89,8 @@ public class MarcacaoAdapter extends RecyclerView.Adapter {
 
                     Marcacao marcacao = new Marcacao();
 
-                    root.child("agenda").setValue(id_agenda);
-                    root.removeValue();
+                    root.child(id_agenda).removeValue();
+                    //root.removeValue();
 
                 }
             });

@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">No Lines Admin</string>
+    <string name="gerir_pacientes">Gerir Pacientes</string>
+    <string name="id">ID</string>
+    <string name="textView">TextView</string>
+    <string name="email">Email:</string>
+    <string name="senha">Senha:</string>
+    <string name="telefone">Telefone:</string>
+    <string name="textview">TextView</string>
+    <string name="nome">Nome:</string>
+</resources>
